@@ -89,6 +89,8 @@ export class HomeComponent implements OnInit {
       this.plantService.startWateringPlant(id);
     });
 
+    Swal.fire('Success', 'Request to start watering sent!', 'success')
+
     this.clearSelected();
   }
 
@@ -96,6 +98,8 @@ export class HomeComponent implements OnInit {
     this.selectedPlants.forEach((id)=> {
       this.plantService.stopWateringPlant(id);
     });
+
+    Swal.fire('Information', 'Request to stop watering sent!', 'info')
 
     this.clearSelected();
   }
