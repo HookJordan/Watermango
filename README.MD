@@ -34,6 +34,9 @@ This will start the application and allow you to access it from the following ur
 More information about starting / install the packages is available in the README.MD provided by angular in the UI folder. 
 
 ### User Guide
+
+![Image of Dashboard](https://i.gyazo.com/836dc395a8ddcbd7b4a3c792c2861672.png)
+
 The application should be pretty straight forward to use. Warnings/Notifications will be displayed at the top of the page. If you fix an issue you are receiving a warning for the message will be removed. Plant state is updated periodically for you so no need to refresh the page! If you wish to start or stop watering a plant (1 or more), please click on the row in the table of the desired items. This once one or more items are selected the action buttons will appear at the bottom. 
 
 **Water** Will begin watering the desired plants
