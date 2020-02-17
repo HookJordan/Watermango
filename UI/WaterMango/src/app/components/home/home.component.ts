@@ -11,41 +11,31 @@ import Swal from 'sweetalert2';
 export class HomeComponent implements OnInit {
 
   selectedPlants: any[] = [ ];
-  plantsPoll = interval(500);
-  plants: any[]; // Could define actual model object for plants...
+  plantsPoll = interval(1000);
+  plants: any[] = [ ]; // Could define actual model object for plants...
+  dyingPlants: any[] = [ ];
 
   constructor(
     private plantService: PlantService
   ) { }
 
   ngOnInit() {
-    // Initial poll
-    this.plantService.getPlants()
-    .subscribe(data => this.plants = data as any[])
-    .add(() => { 
-      this.refreshing = false;
-      this.checkForExpiredPlants(); 
-      this.refreshPlants(); 
-    });
-
     // This could be done differently with web sockets or server sent events...
     this.plantsPoll.subscribe(n => {
       this.refreshPlants();
     });
   }
 
-  refreshing: boolean = true;
   refreshPlants() {
-    if (this.refreshing) { return; }
-    this.refreshing = true; 
     this.plantService.getPlants().subscribe(data => this.plants = data as any[]).add(() => { 
-      this.refreshing = this.checkForExpiredPlants(); 
+      this.checkForExpiredPlants(); 
     });
 
   }
 
   checkForExpiredPlants() {
-    const list: any[] = [ ];
+    // const list: any[] = [ ];
+    this.dyingPlants = [ ];
     this.plants.forEach((plant) => {
       const date = new Date(plant.lastUpdated).getTime();
       const now = new Date().getTime();
@@ -54,17 +44,9 @@ export class HomeComponent implements OnInit {
       let diff = ((Math.abs(now - date) / 1000) / 60) / 60;
 
       if (diff >= 6) {
-        list.push(plant.name);
+        this.dyingPlants.push(plant.name);
       }
     });
-
-
-    Swal.fire('Warning', list.join(', ') + " need to be watered ASAP!", 'warning')
-    .then((result) => {
-      this.refreshing = false;
-    });
-
-    return list.length > 0;
   }
 
   typeState(state) {
@@ -84,6 +66,9 @@ export class HomeComponent implements OnInit {
   }
 
   toggleSelect(plant) {
+    // 3 = Resting -- don't touch a resting plant!
+    if (plant.state == 3) { return; }
+
     const idx = this.selectedPlants.indexOf(plant.id);
     if(idx === -1) {
       this.selectedPlants.push(plant.id);

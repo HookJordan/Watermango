@@ -1,28 +1,46 @@
 <div class="container">
-    <div class="row">
-        <div class="table-responsive">
-            <table class="table table-sm table-striped table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th></th>
-                        <th>Preview</th>
-                        <th>Type</th>
-                        <th>Location</th>
-                        <th>State</th>
-                        <th>Last Updated</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let plant of plants" (click)="toggleSelect(plant)">
-                        <td><input type="checkbox" class="form-contorl" [checked]="isSelected(plant.id)" [disabled]="plant.state == 3"></td>
-                        <td><img class="img preview" [src]="plant.previewUrl"></td>
-                        <td>{{plant.name}}</td>
-                        <td>{{plant.location}}</td>
-                        <td>{{typeState(plant.state)}}</td>
-                        <td>{{plant.lastUpdated | date:'short' }}</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="row" *ngIf="plants.length == 0">
+        <div class="col">
+            <div class="alert alert-warning">
+                No plants found at this time. If this problem persists, please ensure the backend service has started up successfully!
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="dyingPlants.length != 0">
+        <div class="col">
+            <div class="alert alert-warning">
+                <b>{{dyingPlants.join(', ')}}</b> are dying! Please water them as soon as possible!
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="plants.length > 0">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>Preview</th>
+                            <th>Type</th>
+                            <th>Location</th>
+                            <th>State</th>
+                            <th>Last Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let plant of plants" (click)="toggleSelect(plant)">
+                            <td><input type="checkbox" class="form-contorl" [checked]="isSelected(plant.id)" [disabled]="plant.state == 3"></td>
+                            <td><img class="img preview" [src]="plant.previewUrl"></td>
+                            <td>{{plant.name}}</td>
+                            <td>{{plant.location}}</td>
+                            <td>{{typeState(plant.state)}}</td>
+                            <td>{{plant.lastUpdated | date:'short' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="row" *ngIf="selectedPlants.length > 0">

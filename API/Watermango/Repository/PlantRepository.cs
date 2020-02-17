@@ -23,12 +23,14 @@ namespace Watermango.Repository
                         Name = "Cactus",
                         Location = "Roof",
                         PreviewUrl = "http://icons.iconarchive.com/icons/google/noto-emoji-animals-nature/256/22332-cactus-icon.png"
+                        // No last updated = default to watered now!
                     },
                     new Plant
                     {
                         Id = 2,
                         Name = "Roses",
                         Location = "2nd Floor",
+                        LastUpdated = DateTime.Now.AddHours(-5).AddMinutes(-59), // needs to water in 1 minute
                         PreviewUrl = "http://icons.iconarchive.com/icons/aha-soft/free-large-love/256/Rose-icon.png"
                     },
                     new Plant
@@ -36,6 +38,7 @@ namespace Watermango.Repository
                         Id = 3,
                         Name = "Tulip",
                         Location = "3nd Floor",
+                        LastUpdated = DateTime.Now.AddMinutes(-30), // recently watered
                         PreviewUrl = "http://icons.iconarchive.com/icons/google/noto-emoji-animals-nature/256/22327-tulip-icon.png"
 
                     },
@@ -44,7 +47,7 @@ namespace Watermango.Repository
                         Id = 4,
                         Name = "Wolfsbane",
                         Location = "Basement",
-                        LastUpdated = DateTime.Now.AddHours(-6),
+                        LastUpdated = DateTime.Now.AddHours(-6), // needs to water now
                         PreviewUrl = "https://wiki.gamedetectives.net/images/c/c6/Wolfsbane.png"
                     },
                     new Plant
@@ -52,7 +55,7 @@ namespace Watermango.Repository
                         Id = 5,
                         Name = "Venus Fly Trap",
                         Location = "Main Entrance",
-                        LastUpdated = DateTime.Now.AddHours(-6),
+                        LastUpdated = DateTime.Now.AddHours(-6), // needs to water now
                         PreviewUrl = "https://p1.hiclipart.com/preview/605/791/711/super-mario-icons-carnivore-plant-thumbnail.jpg"
                     }
                 );
